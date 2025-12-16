@@ -20,11 +20,11 @@ const SpaceBackground = () => {
         setSize();
         window.addEventListener('resize', setSize);
 
-        // Star properties
-        const numStars = 400;
+        // Star properties - more subtle for darker aesthetic
+        const numStars = 150; // Reduced from 400
         const stars = [];
-        const speed = 0.5; // Subtle speed
-        const depth = 1500; // Deep 3D space
+        const speed = 0.15; // Much slower, subtle drift
+        const depth = 2000; // Deeper space = less dramatic movement
 
         // Initialize stars
         for (let i = 0; i < numStars; i++) {
@@ -32,15 +32,14 @@ const SpaceBackground = () => {
                 x: Math.random() * width - width / 2,
                 y: Math.random() * height - height / 2,
                 z: Math.random() * depth,
-                o: Math.random() // opacity base
+                o: Math.random() * 0.5 + 0.2 // Lower base opacity (0.2 to 0.7)
             });
         }
 
         let animationId;
 
         const animate = () => {
-            // Dark subtle background
-            // Use subtle alpha for trails if desired, but user wants clean space
+            // Dark background - solid fill for clean look
             ctx.fillStyle = '#050505';
             ctx.fillRect(0, 0, width, height);
 
@@ -51,7 +50,7 @@ const SpaceBackground = () => {
             const cy = height / 2;
 
             stars.forEach(star => {
-                // Move star towards screen
+                // Move star towards screen (very slowly)
                 star.z -= speed;
 
                 // Reset moves to back
@@ -61,16 +60,16 @@ const SpaceBackground = () => {
                     star.y = Math.random() * height - height / 2;
                 }
 
-                // Project 3D -> 2D
-                const k = 128.0 / star.z; // projection scaling factor
+                // Project 3D -> 2D with reduced scaling for less warp
+                const k = 80.0 / star.z; // Reduced from 128 for less dramatic perspective
                 const px = star.x * k + cx;
                 const py = star.y * k + cy;
 
                 if (px >= 0 && px <= width && py >= 0 && py <= height) {
-                    // Size scales with proximity
-                    const size = (1 - star.z / depth) * 2.5;
-                    // Opacity scales with proximity
-                    const opacity = (1 - star.z / depth) * star.o;
+                    // Smaller size, less dramatic scaling
+                    const size = (1 - star.z / depth) * 1.5; // Reduced from 2.5
+                    // Lower opacity overall
+                    const opacity = (1 - star.z / depth) * star.o * 0.6; // Added 0.6 multiplier
 
                     ctx.globalAlpha = opacity;
                     ctx.beginPath();
