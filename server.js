@@ -18,6 +18,11 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+// Debug endpoint at root before anything else
+app.get('/test-server', (req, res) => {
+    res.type('text/plain').send('Express server is running! If you see this, the server works.');
+});
+
 // 1. Health Check (Critical for deployment troubleshooting)
 // If this returns 200, the server IS running.
 app.get('/health', (req, res) => {
