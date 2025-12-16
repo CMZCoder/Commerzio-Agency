@@ -7,13 +7,13 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "dev": "concurrently \"vite\" \"node server.js\"",
+    "dev": "concurrently \"vite\" \"node index.js\"",
     "build": "vite build",
     "postinstall": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "server": "node server.js",
-    "start": "node server.js"
+    "server": "node index.js",
+    "start": "node index.js"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^5.1.1",
