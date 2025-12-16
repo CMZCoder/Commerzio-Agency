@@ -42,28 +42,42 @@ app.use((req, res, next) => {
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const isValidPhone = (phone) => /^[\d\+\-\(\) ]{7,}$/.test(phone); // Basic phone validation
 
-// Transporter configuration
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    secure: process.env.SMTP_PORT == 465, // true for 465, false for other ports
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
-    },
-});
+// Transporter configuration - only if SMTP vars exist
+let transporter = null;
+try {
+    if (process.env.SMTP_HOST && process.env.SMTP_USER) {
+        transporter = nodemailer.createTransport({
+            host: process.env.SMTP_HOST,
+            port: process.env.SMTP_PORT || 587,
+            secure: process.env.SMTP_PORT == 465,
+            auth: {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASSWORD,
+            },
+        });
 
-// Verify connection configuration
-transporter.verify(function (error, success) {
-    if (error) {
-        console.log("SMTP Connection Error:", error);
+        // Verify connection - but don't let it crash the server
+        transporter.verify(function (error, success) {
+            if (error) {
+                console.log("SMTP Connection Error:", error.message);
+            } else {
+                console.log("SMTP ready to send emails");
+            }
+        });
     } else {
-        console.log("Server is ready to take our messages");
+        console.log("SMTP not configured - email sending disabled");
     }
-});
+} catch (err) {
+    console.log("SMTP setup error (non-fatal):", err.message);
+}
 
 app.post('/api/contact', async (req, res) => {
     const { name, email, phone, message } = req.body;
+
+    // Check if email sending is configured
+    if (!transporter) {
+        return res.status(503).json({ error: 'Email service is not configured. Please try again later.' });
+    }
 
     // Server-side validation
     if (!name || /[\d!@#$%^&*(),.?":{}|<>]/.test(name)) {
