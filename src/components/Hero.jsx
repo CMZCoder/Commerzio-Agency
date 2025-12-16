@@ -57,6 +57,7 @@ const Hero = () => {
                         className=""
                         style={{ color: '#fff' }}
                         delayOffset={t('hero_title').split(' ').slice(0, -1).join(' ').length * 0.05}
+                        charClassName="lightning-char"
                     />
                 </h1>
 
@@ -86,7 +87,7 @@ const Hero = () => {
     );
 };
 
-const AnimatedText = ({ text, className = "", style = {}, delayOffset = 0 }) => {
+const AnimatedText = ({ text, className = "", style = {}, delayOffset = 0, charClassName = "hero-char" }) => {
     // Split text into array of characters
     const letters = Array.from(text);
 
@@ -95,7 +96,7 @@ const AnimatedText = ({ text, className = "", style = {}, delayOffset = 0 }) => 
             {letters.map((char, index) => (
                 <span
                     key={index}
-                    className="hero-char"
+                    className={charClassName}
                     style={{
                         animationDelay: `${delayOffset + index * 0.05}s`,
                     }}
