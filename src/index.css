@@ -258,22 +258,19 @@ h4 {
 .hero-char {
   display: inline-block;
   opacity: 1;
+  /* Always lit */
   color: inherit;
   transform: translateZ(0);
   animation: mirror-sweep 6s infinite linear;
+  /* Slower loop for elegance */
   background: inherit;
   background-attachment: fixed;
   -webkit-background-clip: text;
   background-clip: text;
 }
 
-/* Specific class for the "Future" word lightning strike */
-.lightning-char {
-  display: inline-block;
-  color: #fff;
-  /* Sync duration with hero-char for perfect loop coordination */
-  animation: lightning-sequence 6s infinite linear;
-}
+/* We removed .text-gradient class usage in component, so no need for override unless sticky. */
+/* But let's define mirror-sweep */
 
 @keyframes mirror-sweep {
   0% {
@@ -282,82 +279,110 @@ h4 {
     transform: scale(1);
   }
 
-  /* Sweep happens in the first 3 seconds (50% of 6s) */
-  25% {
-    filter: brightness(1.3) contrast(1.1);
-    text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+  5% {
+    filter: brightness(1.7) contrast(1.2);
+    /* Bright flash */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    transform: scale(1.05);
   }
 
-  50% {
+  15% {
     filter: brightness(1);
     text-shadow: none;
+    transform: scale(1);
   }
 
   100% {
     filter: brightness(1);
     text-shadow: none;
+    transform: scale(1);
   }
 }
 
-/* 
-   Combined Animation for "Future":
-   0-50% (0-3s): Matches mirror-sweep EXACTLY.
-   50-55% (3-3.3s): Lightning Strike!
-   55-100% (3.3-6s): Pause/Idle.
-*/
-@keyframes lightning-sequence {
+.hero-char-vibrate {
+  display: inline-block;
+  opacity: 1;
+  color: inherit;
+  transform: translateZ(0);
+  animation: mirror-sweep-vibrate 6s infinite linear;
+  background: inherit;
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
 
-  /* --- PHASE 1: Mirror Sweep Match (0-50%) --- */
+@keyframes mirror-sweep-vibrate {
   0% {
     filter: brightness(1);
     text-shadow: none;
     transform: scale(1) translate(0, 0);
-    color: inherit;
   }
 
-  25% {
-    filter: brightness(1.3) contrast(1.1);
-    text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+  /* Start vibration build up */
+  3% {
+    transform: scale(1.02) translate(1px, 1px);
   }
 
-  48% {
+  4% {
+    transform: scale(1.04) translate(-1px, -2px);
+  }
+
+  /* PEAK LIT STATE with INTENSE VIBRATION */
+  5% {
+    filter: brightness(1.7) contrast(1.2);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px var(--accent-blue);
+    transform: scale(1.1) translate(-2px, 2px);
+  }
+
+  5.5% {
+    transform: scale(1.1) translate(2px, -2px);
+    filter: brightness(1.7) contrast(1.2);
+  }
+
+  6% {
+    transform: scale(1.08) translate(-1px, 2px);
+    filter: brightness(1.6) contrast(1.1);
+  }
+
+  7% {
+    transform: scale(1.05) translate(1px, -1px);
+  }
+
+  15% {
     filter: brightness(1);
     text-shadow: none;
     transform: scale(1) translate(0, 0);
-    color: inherit;
   }
 
-  /* --- PHASE 2: The Lightning Strike (50% mark / ~3s) --- */
-  50% {
-    transform: translate(-2px, 2px) scale(1.1);
-    filter: brightness(3) contrast(1.5);
-    text-shadow: 0 0 20px #fff, 0 0 40px var(--accent-blue);
-    color: #fff;
-  }
-
-  51% {
-    transform: translate(3px, -3px) scale(1.2);
-    filter: brightness(5);
-    text-shadow: 0 0 40px #fff, 0 0 80px var(--accent-blue);
-  }
-
-  52% {
-    transform: translate(-1px, 1px) scale(1.1);
-    filter: brightness(3);
-  }
-
-  53% {
-    transform: translate(0, 0) scale(1);
-    filter: brightness(1);
-    text-shadow: none;
-    color: inherit;
-  }
-
-  /* --- PHASE 3: Pause (53-100%) --- */
   100% {
     filter: brightness(1);
     text-shadow: none;
-    color: inherit;
+    transform: scale(1);
+  }
+}
+
+@keyframes reveal-gradient {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+    text-shadow: 0 0 0 rgba(59, 130, 246, 0);
+    /* Start transparent, which it is already */
+  }
+
+  20% {
+    opacity: 1;
+    /* Flash white? No, keep gradient but maybe brightness up? */
+    /* If we set color: #fff here it hides gradient. */
+    /* Let's just shadow flash */
+    text-shadow: 0 0 30px var(--accent-blue), 0 0 60px var(--accent-gold);
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: none;
+    text-shadow: 0 0 0 transparent;
+    color: transparent;
   }
 }
 

@@ -55,9 +55,9 @@ const Hero = () => {
                     <AnimatedText
                         text={t('hero_title').split(' ').slice(-1)[0]}
                         className=""
+                        charClassName="hero-char hero-char-vibrate"
                         style={{ color: '#fff' }}
                         delayOffset={t('hero_title').split(' ').slice(0, -1).join(' ').length * 0.05}
-                        charClassName="lightning-char"
                     />
                 </h1>
 
@@ -87,7 +87,7 @@ const Hero = () => {
     );
 };
 
-const AnimatedText = ({ text, className = "", style = {}, delayOffset = 0, charClassName = "hero-char" }) => {
+const AnimatedText = ({ text, className = "", charClassName = "hero-char", style = {}, delayOffset = 0 }) => {
     // Split text into array of characters
     const letters = Array.from(text);
 
