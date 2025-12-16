@@ -578,7 +578,7 @@ h4 {
 .project-card-wrapper {
   perspective: 1000px;
   /* Balanced spacing between projects */
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 }
 
 .project-card {
@@ -1206,7 +1206,7 @@ h4 {
 .app-footer {
   background: linear-gradient(to top, rgba(5, 5, 5, 0.95), transparent);
   padding: 3rem 0 2rem;
-  margin-top: 6rem;
+  margin-top: 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
