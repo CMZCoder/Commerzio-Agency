@@ -253,13 +253,16 @@ h4 {
   margin-bottom: 2rem;
   letter-spacing: -0.02em;
   display: inline-block;
+  overflow: visible;
+  /* Ensure descenders aren't clipped by bounding box */
 }
 
-/* Fix for descender clipping without increasing overall line height */
+/* Fix for descender clipping: Expand paint area downwards */
 .hero-title .text-gradient {
-  padding-bottom: 0.15em;
-  margin-bottom: -0.05em;
+  padding-bottom: 0.4em;
+  margin-bottom: -0.4em;
   display: inline-block;
+  overflow: visible;
 }
 
 .hero-char {
