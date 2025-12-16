@@ -68,8 +68,8 @@ const ContactForm = ({ onClose }) => {
         setIsSubmitting(true);
 
         try {
-            // POST to relative path (handled by proxy in dev, or same-origin in prod)
-            const response = await fetch('/api/contact', {
+            // POST to PHP handler (works on static hosting)
+            const response = await fetch('/contact.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
