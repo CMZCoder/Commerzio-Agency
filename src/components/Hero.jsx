@@ -76,9 +76,24 @@ const Hero = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5, duration: 0.8 }}
                 >
-                    <a href="#projects" className="btn btn-primary btn-rotate-glow">
+                    <button
+                        onClick={() => {
+                            const projectsSection = document.getElementById('projects');
+                            if (projectsSection) {
+                                const headerOffset = 100;
+                                const elementPosition = projectsSection.getBoundingClientRect().top;
+                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                                window.scrollTo({
+                                    top: offsetPosition,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }}
+                        className="btn btn-primary btn-rotate-glow"
+                    >
                         {t('view_projects')}
-                    </a>
+                    </button>
 
                     <ContactShatterButton />
                 </motion.div>
