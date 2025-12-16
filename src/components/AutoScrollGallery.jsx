@@ -68,7 +68,11 @@ const AutoScrollGallery = ({ images, title = 'Project Gallery' }) => {
                 className="auto-scroll-content"
                 ref={scrollRef}
                 onScroll={handleScroll}
-                style={{ overflowY: isHovered ? 'auto' : 'hidden' }}
+                style={{
+                    overflowY: isHovered ? 'auto' : 'hidden',
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none'
+                }}
             >
                 {/* Render 3 sets to be absolutely safe about "halfway" logic visually if container is tall */}
                 {images.map((img, i) => (
