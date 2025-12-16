@@ -602,38 +602,71 @@ h4 {
 
 /* Auto-scroll gallery container */
 .auto-scroll-container {
+  position: relative;
   width: 100%;
   height: 100%;
-  position: relative;
+}
+
+/* Hide scrollbar completely - no layout shift */
+.auto-scroll-content::-webkit-scrollbar {
+  display: none;
 }
 
 .auto-scroll-content {
-  width: 100%;
-  height: 100%;
-  overflow-y: hidden;
-  /* Start hidden, will be set to auto on hover */
-  scrollbar-gutter: stable;
-  /* Reserve space for scrollbar to prevent layout shift */
-  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-/* Custom scrollbar styling - overlay style */
-.auto-scroll-content::-webkit-scrollbar {
-  width: 8px;
+/* Custom scroll buttons - overlay style */
+.gallery-scroll-btn {
+  position: absolute;
+  right: 20px;
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  animation: fadeSlideIn 0.4s ease-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.auto-scroll-content::-webkit-scrollbar-track {
-  background: transparent;
+.gallery-scroll-btn:hover {
+  background: var(--accent-blue);
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
 
-.auto-scroll-content::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
-  transition: background 0.3s;
+.gallery-scroll-btn:active {
+  transform: scale(0.95);
 }
 
-.auto-scroll-content::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
+.scroll-up {
+  top: 20px;
+}
+
+.scroll-down {
+  bottom: 20px;
+}
+
+/* Fade slide in animation for buttons */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* ... existing styles ... */

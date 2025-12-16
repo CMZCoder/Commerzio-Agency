@@ -46,6 +46,18 @@ const AutoScrollGallery = ({ images, title = 'Project Gallery' }) => {
         }
     };
 
+    const scrollUp = () => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({ top: -200, behavior: 'smooth' });
+        }
+    };
+
+    const scrollDown = () => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollBy({ top: 200, behavior: 'smooth' });
+        }
+    };
+
     return (
         <div
             className="auto-scroll-container"
@@ -69,6 +81,22 @@ const AutoScrollGallery = ({ images, title = 'Project Gallery' }) => {
                     <img key={`dup-2-${i}`} src={img} alt={`${title} - Duplicate 2 ${i + 1}`} className="scroll-image" />
                 ))}
             </div>
+
+            {/* Custom scroll controls - only visible on hover */}
+            {isHovered && (
+                <>
+                    <button className="gallery-scroll-btn scroll-up" onClick={scrollUp} aria-label="Scroll up">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </button>
+                    <button className="gallery-scroll-btn scroll-down" onClick={scrollDown} aria-label="Scroll down">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                </>
+            )}
         </div>
     );
 };
