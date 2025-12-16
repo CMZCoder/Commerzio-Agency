@@ -5,6 +5,36 @@ import { Github, Linkedin, Mail } from 'lucide-react';
 const Footer = () => {
     const { t } = useTranslation();
 
+    React.useEffect(() => {
+        const footerContent = document.querySelector('.footer-content');
+        if (!footerContent) return;
+
+        const animateElements = () => {
+            // Get all footer child elements
+            const elements = footerContent.children;
+
+            // Random animations for each section
+            const animations = ['footer-fade-slide', 'footer-bounce', 'footer-scale-pulse', 'footer-rotate-subtle'];
+
+            Array.from(elements).forEach((element, index) => {
+                // Remove previous animation
+                element.classList.remove(...animations);
+
+                // Add random animation
+                const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+                element.classList.add(randomAnimation);
+            });
+        };
+
+        // Initial animation
+        animateElements();
+
+        // Re-animate every 4 seconds
+        const interval = setInterval(animateElements, 4000);
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <footer className="app-footer">
             <div className="footer-content">
