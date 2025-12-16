@@ -277,6 +277,8 @@ h4 {
   background-attachment: fixed;
   -webkit-background-clip: text;
   background-clip: text;
+  padding-bottom: 0.15em;
+  overflow: visible;
 }
 
 /* We removed .text-gradient class usage in component, so no need for override unless sticky. */
@@ -319,6 +321,8 @@ h4 {
   background-attachment: fixed;
   -webkit-background-clip: text;
   background-clip: text;
+  padding-bottom: 0.15em;
+  overflow: visible;
 }
 
 @keyframes mirror-sweep-vibrate {
